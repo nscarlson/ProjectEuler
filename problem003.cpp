@@ -10,12 +10,10 @@ bool isPrime(int n)
     int limit = (int) ceil(sqrt(n));
     
     for (int i = 2; i <= limit; i++) {
-        
         if (n % i == 0) {
             return false;
         }
     }
-    cout << n << " is prime!" << endl;
     return true;
 }
 
