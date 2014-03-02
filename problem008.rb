@@ -9,7 +9,6 @@ until i > contents.size - 5
 
 	if substring.to_i > largest.to_i
 		largest = substring
-		puts "New largest is: #{largest}"
 	end
 
 	i += 1

@@ -7,9 +7,12 @@ using namespace std;
 
 bool isPrime(int n)
 {
-    int limit = (int) ceil(sqrt(n));
+    int limit = (int) sqrt(n);
+    if (n % 2 == 0) {
+        return false;
+    }
     
-    for (int i = 2; i <= limit; i++) {
+    for (int i = 3; i <= limit; i += 2) {
         if (n % i == 0) {
             return false;
         }
@@ -20,7 +23,7 @@ bool isPrime(int n)
 int main() {
 
     int largest = 0;
-    int limit = (int) ceil(sqrt(NUMBER));
+    int limit = (int) sqrt(NUMBER);
     
     for (int i = 1; i < limit; i++) {
         if (NUMBER % i == 0 && isPrime(i) && i > largest) {
