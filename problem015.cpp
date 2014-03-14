@@ -11,10 +11,9 @@ using namespace std;
  * which happens to be very inefficient, but for educational purposes I left it commented below.
  *
  * The second method is, in my opinion, a beautiful example of an analytical solution.  The problem 
- * can be expressed as a combinatorics expresssion as simple as 2*GRID_SIZE choose GRID_SIZE.
+ * can be shown as a combinatorics expression as simple as 2*GRID_SIZE choose GRID_SIZE.
  */
-
-
+   
 
 /*
 
@@ -34,5 +33,5 @@ int main() {
 	ll n = GRID_SIZE * 2;
 	ll r = GRID_SIZE;
 
-	cout << fixed << setprecision(0) << factorial(40) / (factorial(20) * factorial(20)) << endl;
+	cout << fixed << setprecision(0) << factorial(GRID_SIZE * 2) / (factorial(GRID_SIZE) * factorial(GRID_SIZE)) << endl;
 }
