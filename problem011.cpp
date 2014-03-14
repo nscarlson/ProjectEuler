@@ -91,10 +91,6 @@ int main() {
 				for (int c = 0; c < LINE_SIZE; c++) {
 					product *= grid[i + c][j + c];
 
-					if(product == 1788696) {
-						cout << "F*** yeah" << endl;
-					}
-
 					if (product > largestProduct)
 						largestProduct = product;
 				}
