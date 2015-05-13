@@ -1,17 +1,33 @@
 //
+//	Problem 23
 //	Non-abundant sums
-//
-
-//
-//	A number n is called deficient if the sum of its proper divisors is less than n,
-//	and it is called abundant if this sum exceeds n.
 //
 
 package main
 
 import (
 	"fmt"
+	//"time"
+	//"log"
 )
+
+const (
+	LIMIT	:= 28123
+)
+
+type List struct {
+	data []int 
+}
+
+var abundantList = List{make([]int, 0, 2600)}
+
+func(list *List) append(n int) {
+	list.data = append(list.data, n)
+}
+
+//
+// Returns the sum of all
+//
 
 func sliceSum (divisors []int) int {
 	var sum int
@@ -23,22 +39,24 @@ func sliceSum (divisors []int) int {
 	return sum
 }
 
-func bSumOfTwoAbundants(n) bool {
 
-}
+
+
 
 func bAbundant(n int) bool {
+
+	//start := time.Now()
+
 	divisors := []int{}
+	sum := 0
 
 	//
 	//	Populate n's list of proper divisors
 	//
 
-	for i := 1; i < n / 2; i++ {
+	for i := 1; i < n / 2 + 1; i++ {
 		if n % i == 0 {
 			divisors = append(divisors, i)
-
-			fmt.Println(i, divisors, sliceSum(divisors))
 		}
 	}
 
@@ -47,17 +65,55 @@ func bAbundant(n int) bool {
 	// Else it is either perfect or deficient
 	//
 
-	fmt.Println("Sum is:", sliceSum(divisors))
-	return sliceSum(divisors) > n
+	sum = sliceSum(divisors)
 
+	//elapsed := time.Since(start)
+
+	if sum > n {
+		//fmt.Println("Binomial took %s", elapsed)
+		return true
+	} else {
+		//fmt.Println("Binomial took %s", elapsed)
+		return false
+	}
 }
 
-func sumOfNonAbundantSums {
-	var lastAbundant int
-	
+
+
+func sumOfNonAbundantSums() int {
+	//
+	//	The first odd abundant number is 945
+	//
+
+	//first abundant number
+
+	sum := 0
+	//sums := []int{}
+
+	for i := 24; i < LIMIT; i++ {
+		if i % 2 == 0 && i > 46 {
+
+		}
+	}
+
+	return sum
 }
 
 func main() {
-	fmt.Println("945 Abundant?", abundant(945))
+	//
+	//	Initialize all abundants < 28123
+	//
+	for i := 12; i < LIMIT; i++ {
 
+		if bAbundant(i) {
+			
+			abundantList.append(i)
+		}
+	}
+
+
+	for n := 2; n < LIMIT {
+
+	}
 }
+
