@@ -7,45 +7,23 @@ package main
 
 import (
 	"fmt"
-	//"time"
-	//"log"
 )
 
 const (
-	LIMIT	:= 28123
+	LIMIT	=	28123
 )
 
-type List struct {
-	data []int 
-}
-
-var abundantList = List{make([]int, 0, 2600)}
-
-func(list *List) append(n int) {
-	list.data = append(list.data, n)
-}
-
-//
-// Returns the sum of all
-//
-
-func sliceSum (divisors []int) int {
+func sliceSum (slice []int) int {
 	var sum int
 
-	for _, i := range divisors {
+	for _, i := range slice {
 		sum += i
 	}
 
 	return sum
 }
 
-
-
-
-
 func bAbundant(n int) bool {
-
-	//start := time.Now()
 
 	divisors := []int{}
 	sum := 0
@@ -60,60 +38,58 @@ func bAbundant(n int) bool {
 		}
 	}
 
-	//
-	// If sum > n, it's abundant
-	// Else it is either perfect or deficient
-	//
-
 	sum = sliceSum(divisors)
 
-	//elapsed := time.Since(start)
-
 	if sum > n {
-		//fmt.Println("Binomial took %s", elapsed)
 		return true
 	} else {
-		//fmt.Println("Binomial took %s", elapsed)
 		return false
 	}
 }
 
-
-
-func sumOfNonAbundantSums() int {
-	//
-	//	The first odd abundant number is 945
-	//
-
-	//first abundant number
-
-	sum := 0
-	//sums := []int{}
-
-	for i := 24; i < LIMIT; i++ {
-		if i % 2 == 0 && i > 46 {
-
-		}
-	}
-
-	return sum
-}
-
 func main() {
+	sum := 0
+
+	abundantList 			:= []int{}
+	canBeWrittenAsAbundant 	:= make([]bool, LIMIT + 1)
+
+
 	//
 	//	Initialize all abundants < 28123
 	//
-	for i := 12; i < LIMIT; i++ {
+
+	for i := 1; i < LIMIT; i++ {
 
 		if bAbundant(i) {
 			
-			abundantList.append(i)
+			abundantList = append(abundantList, i)
+		}
+	}
+
+	//
+	//	Initialize list of all sums of abundants < 28123
+	//
+
+	for i := 0; i < len(abundantList); i++ {
+		for j := i; j < len(abundantList); j++ {
+			if (abundantList[i] + abundantList[j] <= LIMIT) {
+				canBeWrittenAsAbundant[abundantList[i] + abundantList[j]] = true
+			} else {
+				break
+			}
 		}
 	}
 
 
-	for n := 2; n < LIMIT {
+	//
+	//	Sum all that are NOT sums of abundants
+	//
 
+	for i := 1; i <= LIMIT; i++ {
+		if !canBeWrittenAsAbundant[i] {
+			sum += i
+		}
 	}
-}
 
+	fmt.Println("The sum of all integers not expressible as a sum of two abundants is:", sum)
+}
