@@ -33,7 +33,7 @@ const (
 
 )
 
-var MONTHS_DAYS_ARR = [...]int {
+var MONTH_DAYS_ARR = [...]int {
 	31,	// January
 	28, // February
 	31, // March
@@ -58,7 +58,22 @@ var WEEKDAY_NAMES_ARR = [...]string {
 	"Saturday",
 }
 
-func isLeapYear(year int) bool {
+var MONTH_NAMES_ARR = [...]string {
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+}
+
+func IsLeapYear(year int) bool {
 	if ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)) {
 		return true
 	} else {
@@ -66,16 +81,12 @@ func isLeapYear(year int) bool {
 	}
 }
 
-
-//
-//
-//
-func daysSinceEpoch(month int, day int, year int) int {
+func DaysSinceEpoch(month int, day int, year int) int {
 	nDays := 0
 
 	if year > EPOCH_YEAR {
 		for i := EPOCH_YEAR; i < year; i++ {
-			if isLeapYear(i) {
+			if IsLeapYear(i) {
 				nDays += 366
 
 				fmt.Println("Adding leap year", i)
@@ -87,14 +98,26 @@ func daysSinceEpoch(month int, day int, year int) int {
 		}
 	}
 
-	if month > EPOCH_MONTH {
+	if month == EPOCH_MONTH + 1 {
 		for i := EPOCH_MONTH+1; i < month; i++ {
-			nDays += MONTHS_DAYS_ARR[i]
+			nDays += MONTH_DAYS_ARR[i]
+
+			if IsLeapYear(year) && i == FEBRUARY {
+				nDays++
+
+				fmt.Print("Added a leapyear February")
+			} else {
+				fmt.Println("Adding", MONTH_NAMES_ARR[i], MONTH_DAYS_ARR[i], "days(s)")
+			}
 		}
+	} else if month > EPOCH_MONTH + 1 {
+
+	} else {
+		nDays += 1
 	}
 
 	if day > EPOCH_DAY {
-		for i := EPOCH_DAY+1; i < day; i++ {
+		for i := EPOCH_DAY; i < day; i++ {
 			nDays++
 		}
 	}
@@ -106,15 +129,28 @@ func daysSinceEpoch(month int, day int, year int) int {
 //
 //
 
-func dayOfWeek(month, day, year int) int {
-	return daysSinceEpoch(month, day, year) % 7
+func DayOfWeek(month, day, year int) int {
+
+	fmt.Println()
+
+	return DaysSinceEpoch(month, day, year) % 7
 }
 
-func dayOfWeekName(weekDay int) string {
+func DayOfWeekName(weekDay int) string {
 	return WEEKDAY_NAMES_ARR[weekDay]
 }
 
 func main() {
-	fmt.Println("January 2, 1900 falls on a", dayOfWeekName(dayOfWeek(JANUARY, 2, 1900)))
-	fmt.Println("January 2, 1901 falls on a", dayOfWeekName(dayOfWeek(JANUARY, 2, 1901)))
+	fmt.Println("January 1, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 1, 1900)))
+	fmt.Println("January 2, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 2, 1900)))
+	fmt.Println("January 3, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 3, 1900)))
+	fmt.Println("January 4, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 4, 1900)))
+	fmt.Println("January 5, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 5, 1900)))
+	fmt.Println("January 6, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 6, 1900)))
+	fmt.Println("January 7, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 7, 1900)))
+	fmt.Println("January 8, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 8, 1900)))
+	fmt.Println("January 9, 1900 falls on a", 	DayOfWeekName(DayOfWeek(JANUARY, 9, 1900)))
+	fmt.Println("January 10, 1900 falls on a", 	DayOfWeekName(DayOfWeek(JANUARY, 10, 1900)))
+	fmt.Println("January 11, 1900 falls on a", 	DayOfWeekName(DayOfWeek(JANUARY, 11, 1900)))
+	fmt.Println("April 12, 1900 falls on a", 	DayOfWeekName(DayOfWeek(APRIL, 12, 1900)))
 }
