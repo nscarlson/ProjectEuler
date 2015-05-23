@@ -27,7 +27,7 @@ const (
 	SATURDAY	= 6
 
 	EPOCH_YEAR	= 1900
-	EPOCH_MONTH	= 0
+	EPOCH_MONTH	= JANUARY
 	EPOCH_DAY	= 1
 
 
@@ -99,21 +99,17 @@ func DaysSinceEpoch(month int, day int, year int) int {
 	}
 
 	if month == EPOCH_MONTH + 1 {
-		for i := EPOCH_MONTH+1; i < month; i++ {
-			nDays += MONTH_DAYS_ARR[i]
+		nDays += MONTH_DAYS_ARR[EPOCH_MONTH] - 1
+		//nDays += day
+	} else if month > EPOCH_MONTH + 1 {
+		for i := 0; i < month-1; i++ {
+			nDays += MONTH_DAYS_ARR[month]
 
 			if IsLeapYear(year) && i == FEBRUARY {
 				nDays++
-
-				fmt.Print("Added a leapyear February")
-			} else {
-				fmt.Println("Adding", MONTH_NAMES_ARR[i], MONTH_DAYS_ARR[i], "days(s)")
 			}
 		}
-	} else if month > EPOCH_MONTH + 1 {
 
-	} else {
-		nDays += 1
 	}
 
 	if day > EPOCH_DAY {
@@ -149,8 +145,8 @@ func main() {
 	fmt.Println("January 6, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 6, 1900)))
 	fmt.Println("January 7, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 7, 1900)))
 	fmt.Println("January 8, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 8, 1900)))
-	fmt.Println("January 9, 1900 falls on a", 	DayOfWeekName(DayOfWeek(JANUARY, 9, 1900)))
-	fmt.Println("January 10, 1900 falls on a", 	DayOfWeekName(DayOfWeek(JANUARY, 10, 1900)))
-	fmt.Println("January 11, 1900 falls on a", 	DayOfWeekName(DayOfWeek(JANUARY, 11, 1900)))
-	fmt.Println("April 12, 1900 falls on a", 	DayOfWeekName(DayOfWeek(APRIL, 12, 1900)))
+	fmt.Println("January 9, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 9, 1900)))
+	fmt.Println("January 10, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 10, 1900)))
+	fmt.Println("January 11, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 11, 1900)))
+	fmt.Println("April 12, 1900 falls on a", DayOfWeekName(DayOfWeek(APRIL, 12, 1900)))
 }
