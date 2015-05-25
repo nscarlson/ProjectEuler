@@ -6,6 +6,7 @@ go:
  - tip
 
 before_script:
+ - echo hello
  - rm *.cpp
 
 script:
