@@ -1,13 +1,13 @@
 language: go
 go:
-	- 1.2
-	- 1.3
-	- release
-	- tip
+ - 1.2
+ - 1.3
+ - release
+ - tip
 
 before_script:
-	- rm *.cpp
+ - rm *.cpp
 
 script:
-	- go build problem019.go
-	- go test -v ./...
+ - go build problem019.go
+ - go test -v ./...
