@@ -5,9 +5,9 @@ go:
  - release
  - tip
 
-before_script:
- - echo hello
- - rm *.cpp
+before_install:
+ - echo "Deleting CPP files..."
+ - sudo rm *.cpp
 
 script:
  - go build problem019.go
