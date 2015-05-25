@@ -10,5 +10,5 @@ before_install:
  - sudo rm *.cpp
 
 script:
- - go build problem019.go
+ - go build "$TRAVIS_BRANCH.go"
  - go test -v ./...
