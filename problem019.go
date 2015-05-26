@@ -5,40 +5,38 @@ import (
 )
 
 const (
-	JANUARY 	= 0
-	FEBRUARY	= 1
-	MARCH		= 2
-	APRIL		= 3
-	MAY			= 4
-	JUNE		= 5
-	JULY		= 6
-	AUGUST		= 7
-	SEPTEMBER	= 8
-	OCTOBER		= 9
-	NOVEMBER	= 10
-	DECEMBER	= 11
+	JANUARY   = 0
+	FEBRUARY  = 1
+	MARCH     = 2
+	APRIL     = 3
+	MAY       = 4
+	JUNE      = 5
+	JULY      = 6
+	AUGUST    = 7
+	SEPTEMBER = 8
+	OCTOBER   = 9
+	NOVEMBER  = 10
+	DECEMBER  = 11
 
-	SUNDAY		= 0
-	MONDAY		= 1
-	TUESDAY		= 2
-	WEDNESDAY	= 3
-	THURSDAY	= 4
-	FRIDAY		= 5
-	SATURDAY	= 6
+	SUNDAY    = 0
+	MONDAY    = 1
+	TUESDAY   = 2
+	WEDNESDAY = 3
+	THURSDAY  = 4
+	FRIDAY    = 5
+	SATURDAY  = 6
 
-	EPOCH_YEAR	= 1900
-	EPOCH_MONTH	= JANUARY
-	EPOCH_DAY	= 1
-
-
+	EPOCH_YEAR  = 1900
+	EPOCH_MONTH = JANUARY
+	EPOCH_DAY   = 1
 )
 
-var MONTH_DAYS_ARR = [...]int {
-	31,	// January
+var MONTH_DAYS_ARR = [...]int{
+	31, // January
 	28, // February
 	31, // March
-	30,	// April
-	31,	// May
+	30, // April
+	31, // May
 	30, // June
 	31, // July
 	31, // August
@@ -48,7 +46,7 @@ var MONTH_DAYS_ARR = [...]int {
 	31, // December
 }
 
-var WEEKDAY_NAMES_ARR = [...]string {
+var WEEKDAY_NAMES_ARR = [...]string{
 	"Sunday",
 	"Monday",
 	"Tuesday",
@@ -58,7 +56,7 @@ var WEEKDAY_NAMES_ARR = [...]string {
 	"Saturday",
 }
 
-var MONTH_NAMES_ARR = [...]string {
+var MONTH_NAMES_ARR = [...]string{
 	"January",
 	"February",
 	"March",
@@ -74,7 +72,7 @@ var MONTH_NAMES_ARR = [...]string {
 }
 
 func IsLeapYear(year int) bool {
-	if ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)) {
+	if (year%4 == 0) && (year%100 != 0) || (year%400 == 0) {
 		return true
 	} else {
 		return false
@@ -98,17 +96,18 @@ func DaysSinceEpoch(month int, day int, year int) int {
 		}
 	}
 
-	if month == EPOCH_MONTH + 1 {
+	if month == EPOCH_MONTH+1 {
 		nDays += MONTH_DAYS_ARR[EPOCH_MONTH] - 1
-		//nDays += day
-	} else if month > EPOCH_MONTH + 1 {
-		for i := 0; i < month-1; i++ {
-			nDays += MONTH_DAYS_ARR[month]
+
+	} else if month > EPOCH_MONTH+1 {
+		for i := EPOCH_MONTH; i < month; i++ {
+			nDays += MONTH_DAYS_ARR[i]
 
 			if IsLeapYear(year) && i == FEBRUARY {
 				nDays++
 			}
 		}
+		//nDays += day
 
 	}
 
@@ -121,10 +120,6 @@ func DaysSinceEpoch(month int, day int, year int) int {
 	return nDays
 }
 
-//
-//
-//
-
 func DayOfWeek(month, day, year int) int {
 
 	fmt.Println()
@@ -134,6 +129,22 @@ func DayOfWeek(month, day, year int) int {
 
 func DayOfWeekName(weekDay int) string {
 	return WEEKDAY_NAMES_ARR[weekDay]
+}
+
+func NumberFirstDayOfMonthSundaysInCentury(century int) int {
+	numberSundays := 0
+	i := (century - 1) * 100
+
+	for year := i; year < i+100; year++ {
+		fmt.Println(year)
+
+		for month := JANUARY; month <= DECEMBER; month++ {
+			if DayOfWeek(month, 1, year) == SUNDAY {
+				numberSundays++
+			}
+		}
+	}
+	return numberSundays
 }
 
 func main() {
@@ -149,4 +160,11 @@ func main() {
 	fmt.Println("January 10, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 10, 1900)))
 	fmt.Println("January 11, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 11, 1900)))
 	fmt.Println("April 12, 1900 falls on a", DayOfWeekName(DayOfWeek(APRIL, 12, 1900)))
+
+	fmt.Println("March 1, 1900 is ", DaysSinceEpoch(MARCH, 1, 1900), "since epoch")
+
+	//
+	//	Return the number of first-month
+	//
+	fmt.Println("The number of Sundays falling on the first of a month is:", NumberFirstDayOfMonthSundaysInCentury(20))
 }
