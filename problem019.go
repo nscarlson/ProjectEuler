@@ -86,12 +86,8 @@ func DaysSinceEpoch(month int, day int, year int) int {
 		for i := EPOCH_YEAR; i < year; i++ {
 			if IsLeapYear(i) {
 				nDays += 366
-
-				fmt.Println("Adding leap year", i)
 			} else {
 				nDays += 365
-
-				fmt.Println("Adding year", i)
 			}
 		}
 	}
@@ -107,8 +103,6 @@ func DaysSinceEpoch(month int, day int, year int) int {
 				nDays++
 			}
 		}
-		//nDays += day
-
 	}
 
 	if day > EPOCH_DAY {
@@ -121,9 +115,6 @@ func DaysSinceEpoch(month int, day int, year int) int {
 }
 
 func DayOfWeek(month, day, year int) int {
-
-	fmt.Println()
-
 	return DaysSinceEpoch(month, day, year) % 7
 }
 
@@ -136,8 +127,6 @@ func NumberFirstDayOfMonthSundaysInCentury(century int) int {
 	i := (century - 1) * 100
 
 	for year := i; year < i+100; year++ {
-		fmt.Println(year)
-
 		for month := JANUARY; month <= DECEMBER; month++ {
 			if DayOfWeek(month, 1, year) == SUNDAY {
 				numberSundays++
@@ -148,23 +137,10 @@ func NumberFirstDayOfMonthSundaysInCentury(century int) int {
 }
 
 func main() {
-	fmt.Println("January 1, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 1, 1900)))
-	fmt.Println("January 2, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 2, 1900)))
-	fmt.Println("January 3, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 3, 1900)))
-	fmt.Println("January 4, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 4, 1900)))
-	fmt.Println("January 5, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 5, 1900)))
-	fmt.Println("January 6, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 6, 1900)))
-	fmt.Println("January 7, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 7, 1900)))
-	fmt.Println("January 8, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 8, 1900)))
-	fmt.Println("January 9, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 9, 1900)))
-	fmt.Println("January 10, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 10, 1900)))
-	fmt.Println("January 11, 1900 falls on a", DayOfWeekName(DayOfWeek(JANUARY, 11, 1900)))
-	fmt.Println("April 12, 1900 falls on a", DayOfWeekName(DayOfWeek(APRIL, 12, 1900)))
-
-	fmt.Println("March 1, 1900 is ", DaysSinceEpoch(MARCH, 1, 1900), "since epoch")
 
 	//
 	//	Return the number of first-month
 	//
+
 	fmt.Println("The number of Sundays falling on the first of a month is:", NumberFirstDayOfMonthSundaysInCentury(20))
 }
