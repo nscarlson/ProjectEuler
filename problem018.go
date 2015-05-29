@@ -4,6 +4,14 @@ import (
 	"fmt"
 )
 
+var triangle [][]int
+var maxsum int
+
+type node struct {
+	data        int
+	left, right *node
+}
+
 func largest(a, b int) int {
 	fmt.Println("Comparing", a, "to", b)
 	if a > b {
@@ -15,8 +23,25 @@ func largest(a, b int) int {
 	}
 }
 
+func maxpath(row, pos, currsum int) {
+	if row > len(triangle)-1 {
+		return
+	}
+
+	currsum += triangle[row][pos]
+
+	if currsum > maxsum {
+		maxsum = currsum
+	}
+
+	maxpath(row+1, pos, currsum)
+	maxpath(row+1, pos+1, currsum)
+}
+
 func main() {
-	triangle := [][]int{
+	//route := make([]int, 15, 15)
+
+	triangle = [][]int{
 		{75},
 		{95, 64},
 		{17, 47, 82},
@@ -31,14 +56,10 @@ func main() {
 		{70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57},
 		{91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48},
 		{63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31},
-		{4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 04, 23},
+		{4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23},
 	}
 
-	route := make([]int, 15, 15)
+	maxpath(0, 0, 0)
 
-	for i := 0; i < len(triangle)-1; i++ {
-		route[i] = largest(triangle[i+1][i], triangle[i+1][i+1])
-
-		fmt.Println(route)
-	}
+	fmt.Println("Maximum path sum is:", maxsum)
 }
